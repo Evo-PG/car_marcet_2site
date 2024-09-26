@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.template.context_processors import request
+
 from .models import Car, Category
 
 def home_site(reqeust):
@@ -7,7 +9,14 @@ def home_site(reqeust):
 
     return render(request=reqeust, template_name='app/home.html', context={"car":cars,"categories":category})
 
-def category_site(reqeust, kd):
-    category = Category.objects.filter(id=kd)
+def category_site(reqeust, pk):
+    category = Category.objects.filter(id=pk)
+    category = Category.objects.all()
 
     return render(request=reqeust, template_name='app/category.html', context={"category":category})
+
+def car_site(reqeust, pk):
+    cars = Car.objects.get(id=pk)
+    category = Category.objects.all()
+
+    return render(request=reqeust, template_name="app/car.html", context={"car":cars, "categories":category})
