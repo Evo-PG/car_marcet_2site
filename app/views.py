@@ -35,7 +35,7 @@ def car_create(reqeust):
 
         categories = Category.objects.get(id=int(category))
 
-        Car(
+        car = Car(
             make=make,
             model=model,
             image=image,
@@ -44,6 +44,7 @@ def car_create(reqeust):
             description=description,
             category_it=categories,
         )
+        car.save()
 
         return redirect('home')
 
