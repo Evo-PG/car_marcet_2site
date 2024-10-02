@@ -7,6 +7,10 @@ def home_site(reqeust):
     cars = Car.objects.all()
     category = Category.objects.all()
 
+    if "search" in reqeust.GET:
+        search = reqeust.GET["search"]
+        cars = Car.objects.filter(make__icontains=search)
+
     return render(request=reqeust, template_name='app/home.html', context={"cars":cars,"categories":category})
 
 def category_site(reqeust, pk):
