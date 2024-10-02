@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.context_processors import request
 
 from .models import Car, Category
@@ -22,5 +22,29 @@ def car_site(reqeust, pk):
     return render(request=reqeust, template_name="app/car.html", context={"car":cars, "categories":category})
 
 def car_create(reqeust):
-    ...
+    categories_all = Category.objects.all()
 
+    if reqeust.method    == "POST":
+        make = reqeust.POST["make"]
+        model = reqeust.POST["model"]
+        image = reqeust.POST["image"]
+        year = reqeust.POST["year"]
+        price = reqeust.POST["price"]
+        description = reqeust.POST["description"]
+        category = reqeust.POST["category"]
+
+        categories = Category.objects.get(id=int(category))
+
+        Car(
+            make=make,
+            model=model,
+            image=image,
+            year=year,
+            price=price,
+            description=description,
+            category_it=categories,
+        )
+
+        return redirect('home')
+
+    return render(request=reqeust, template_name='app/create_car.html', context={"categories":categories_all})
