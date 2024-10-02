@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<center>
+    <form method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Название: </label>
+        <input type="text" placeholder="Введите название"  name="make"><br><br>
+
+        <label>Модель: </label>
+        <input type="text" placeholder="Введите Модель" name="model"><br><br>
+
+        <label>Фото: </label>
+        <input type="file" name="image"><br><br>
+
+        <label>Год выпуска: </label>
+        <input type="number" placeholder="Введите год выпуска" name="year"><br><br>
+
+        <label>Цена: </label>
+        <input type="number" placeholder="Введите цену" name="price"><br><br>
+
+        <label>Описание: </label>
+        <input type="text" placeholder="Введите описание" name="description"><br><br>
+
+        <label>Категория: </label>
+        <input type="number" placeholder="Введите категория" name="category"><br><br>
+
+        <button type="submit">Сохранить</button>
+    </form>
+</center>
+
+</body>
+</html>

@@ -20,3 +20,7 @@ def car_site(reqeust, pk):
     category = Category.objects.all()
 
     return render(request=reqeust, template_name="app/car.html", context={"car":cars, "categories":category})
+
+def car_create(reqeust):
+    ...
+
