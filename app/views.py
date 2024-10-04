@@ -23,12 +23,22 @@ def car_site(reqeust, pk):
     cars = Car.objects.get(id=pk)
     category = Category.objects.all()
 
+    if reqeust.method == "POST":
+        cars.make = reqeust.POST["make"]
+        cars.model = reqeust.POST["model"]
+        cars.year = reqeust.POST["year"]
+        cars.price = reqeust.POST["price"]
+        cars.description = reqeust.POST["description"]
+
+        cars.save()
+
+
     return render(request=reqeust, template_name="app/car.html", context={"car":cars, "categories":category})
 
 def car_create(reqeust):
     categories_all = Category.objects.all()
 
-    if reqeust.method    == "POST":
+    if reqeust.method == "POST":
         make = reqeust.POST["make"]
         model = reqeust.POST["model"]
         image = reqeust.POST["image"]
