@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
-from django.template.context_processors import request
-
 from .models import Car, Category
+from .forms import CarCreateForm
 
 def home_site(reqeust):
     cars = Car.objects.all()
@@ -63,3 +62,15 @@ def car_create(reqeust):
         return redirect('home')
 
     return render(request=reqeust, template_name='app/create_car.html', context={"categories":categories_all})
+
+def car_create2(request):
+    if request.method == 'POST':
+        form = CarCreateForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    form = CarCreateForm()
+
+    return render(request, 'app/car_create2.html', {'form': form})
