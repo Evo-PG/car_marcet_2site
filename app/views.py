@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Car, Category
-from .forms import CarCreateForm
+from .forms import CarCreateForm, UserRegisterForm
 
+# Home
 def home_site(reqeust):
     cars = Car.objects.all()
     category = Category.objects.all()
@@ -12,6 +13,7 @@ def home_site(reqeust):
 
     return render(request=reqeust, template_name='app/home.html', context={"cars":cars,"categories":category})
 
+# site search car
 def category_site(reqeust, pk):
     cars = Car.objects.filter(category_it=pk)
     category = Category.objects.all()
@@ -33,6 +35,8 @@ def car_site(reqeust, pk):
 
 
     return render(request=reqeust, template_name="app/car.html", context={"car":cars, "categories":category})
+
+# create car
 
 def car_create(reqeust):
     categories_all = Category.objects.all()
@@ -74,3 +78,21 @@ def car_create2(request):
     form = CarCreateForm()
 
     return render(request, 'app/car_create2.html', {'form': form})
+
+# User
+
+def user_create(request):
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    form = UserRegisterForm()
+
+    return render(request, 'app/user_create.html', {'form': form})
+
+
+
+
