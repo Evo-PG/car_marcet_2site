@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 # models / form
 from .models import Car, Category
 from .forms import CarCreateForm, UserRegisterForm, UserLoginForm
@@ -113,3 +113,9 @@ def user_login(request):
 
     form = UserLoginForm()
     return render(request, 'app/user_login.html', {'form': form})
+
+def user_logout(request):
+    logout(request)
+    return redirect("home")
+
+

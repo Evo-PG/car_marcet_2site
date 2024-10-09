@@ -13,6 +13,7 @@ urlpatterns = [
     path('car_create2/', views.car_create2, name='car_create2'),
     # user
     path('register/', views.user_create, name='register'),
-    path('login/', views.user_login, name='login')
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout')
 
 ]
