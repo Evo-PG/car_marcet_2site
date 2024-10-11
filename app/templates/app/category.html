@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<!--навбар-->
+<!--нав бар и кнопки-->
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Car_trade</a>
@@ -25,9 +25,11 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Главная</a>
         </li>
+          {% if request.user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link active" href="{% url 'car_create' %}">Опубликовать объявление</a>
         </li>
+          {% endif %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">Категории</a>
           <ul class="dropdown-menu">
@@ -39,13 +41,13 @@
       </ul>
 
       <ul class="navbar-nav ms-auto"> <!-- Добавили класс ms-auto для сдвига вправо -->
-          {% if not request.user %}
-              <li class="nav-item">
-                <a class="nav-link active" href="{% url 'register' %}">Регистрация</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="{% url 'login' %}">Войти</a>
-              </li>
+          {% if not request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'register' %}">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'login' %}">Войти</a>
+                </li>
           {% endif %}
           <button class="btn btn-link p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUserOptions" aria-controls="offcanvasUserOptions" style="text-decoration: none; color: inherit;">
               {{ request.user.username }}

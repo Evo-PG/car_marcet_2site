@@ -43,7 +43,7 @@ def my_cars(request):
     car = Car.objects.filter(user=request.user)
     category = Category.objects.all()
 
-    return render(request=request, template_name="app/my_car.html", context={"car":car, "categories":category})
+    return render(request=request, template_name="app/my_car.html", context={"cars":car, "categories":category})
 
 
 # create car
@@ -54,7 +54,7 @@ def car_create(reqeust):
     if reqeust.method == "POST":
         make = reqeust.POST["make"]
         model = reqeust.POST["model"]
-        image = reqeust.POST["image"]
+        image = reqeust.FILES["image"]
         year = reqeust.POST["year"]
         price = reqeust.POST["price"]
         description = reqeust.POST["description"]
@@ -91,6 +91,14 @@ def car_create2(request):
     form = CarCreateForm()
 
     return render(request, 'app/car_create2.html', {'form': form})
+# car delete
+
+def car_delete(request, pk):
+    car = Car.objects.get(id=pk)
+    car.delete()
+
+    return redirect('home')
+
 
 # User
 
