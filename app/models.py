@@ -16,7 +16,7 @@ class Car(models.Model):
     image = models.ImageField(upload_to="media/image_car")
     year = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10,decimal_places=2)
-    description = models.TextField(max_length=1000)
+    description = models.TextField(blank=True, null=True)
     category_it = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
