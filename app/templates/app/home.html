@@ -39,12 +39,14 @@
       </ul>
 
       <ul class="navbar-nav ms-auto"> <!-- Добавили класс ms-auto для сдвига вправо -->
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'register' %}">Регистрация</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'login' %}">Войти</a>
-          </li>
+          {% if not request.user %}
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'register' %}">Регистрация</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="{% url 'login' %}">Войти</a>
+              </li>
+          {% endif %}
           <button class="btn btn-link p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUserOptions" aria-controls="offcanvasUserOptions" style="text-decoration: none; color: inherit;">
               {{ request.user.username }}
           </button>
@@ -67,10 +69,13 @@
         <h6 class="mb-0">{{ request.user.username }}</h6>
       </div>
     </div>
-
     <hr>
-
     <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+            <a class="nav-link text-dark" href="{% url 'my_car' %}">
+              <i class="bi bi-person-fill me-2"></i>мои авто
+            </a>
+        </li>
       <li class="nav-item mb-2">
         <a class="nav-link text-danger" href="{% url 'logout' %}">
           <i class="bi bi-box-arrow-right me-2"></i>Выйти

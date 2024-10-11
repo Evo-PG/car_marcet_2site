@@ -39,6 +39,13 @@ def car_site(reqeust, pk):
 
     return render(request=reqeust, template_name="app/car.html", context={"car":cars, "categories":category})
 
+def my_cars(request):
+    car = Car.objects.filter(user=request.user)
+    category = Category.objects.all()
+
+    return render(request=request, template_name="app/my_car.html", context={"car":car, "categories":category})
+
+
 # create car
 
 def car_create(reqeust):
@@ -56,6 +63,7 @@ def car_create(reqeust):
         categories = Category.objects.get(id=int(category))
 
         car = Car(
+            user=reqeust.user,
             make=make,
             model=model,
             image=image,
@@ -75,7 +83,9 @@ def car_create2(request):
         form = CarCreateForm(request.POST, request.FILES)
 
         if form.is_valid():
-            form.save()
+            car = form.save(commit=False)
+            car.user = request.user
+            car.save()
             return redirect('home')
 
     form = CarCreateForm()
